@@ -17,14 +17,20 @@ order by 1,2
 
 
 -- Looking at Total Cases Vs Total Deaths
---Shows the likelihood of dying if you contract Covid in your country
+--Shows the likelihood of dying if you contract Covid in your country. My country is United States
+  
 select location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as Deathpercentage
 from PortfolioProject..CovidDeaths
 order by 1,2
 
+---Above is not correct. Nulls are interfering with selected data
+--Furthermore, Datatype of Deathpercentage is shown as Integer. 
+--Needs to be displayed as a Float to ensure realistic percentages
+--Last, I need to set a command to select data only in US.
 
 
-
+--***ADJUSTMENT BELOW*****
+  
 Select location, date, total_cases,total_deaths, 
 (CONVERT(float, total_deaths) / NULLIF(CONVERT(float, total_cases), 0)) * 100 AS Deathpercentage
 from PortfolioProject..covidDeaths
